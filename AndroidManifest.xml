@@ -6,7 +6,7 @@
     <application android:icon="@drawable/icon" android:label="@string/app_name">
 
 
-    <activity android:name="Main" android:launchMode="standard" android:icon="@drawable/icon" android:label="@string/app_name"><intent-filter><action android:name="android.intent.action.MAIN"></action>
+    <activity android:launchMode="standard" android:icon="@drawable/icon" android:label="@string/app_name" android:name="ReceiptListActivity"><intent-filter><action android:name="android.intent.action.MAIN"></action>
 <category android:name="android.intent.category.LAUNCHER"></category>
 </intent-filter>
 </activity>
