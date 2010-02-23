@@ -20,7 +20,27 @@ public class ReceiptCursor extends AbstractCursor {
 		this.rows = rows;
 	}
 
-	static final String [] columnNames = new String[] { "_id", "title", "description", "privateUrl" };
+	static final String [] columnNames = new String[] { "_id", "uid", "title", "description", "datetimeMs", "timezoneId", "privateUrl" };
+
+	protected Object getObject(int col) {
+		switch(col) {
+		case 0:
+			return new Long(rows.get(getPosition()).get_id());
+		case 1:
+			return rows.get(getPosition()).getUid();
+		case 2:
+			return rows.get(getPosition()).getTitle();
+		case 3:
+			return rows.get(getPosition()).getDescription();
+		case 4: 
+			return new Long(rows.get(getPosition()).getDatetimeMs());
+		case 5:
+			return rows.get(getPosition()).getTimezoneId();
+		case 6:
+			return rows.get(getPosition()).getPrivateUrl();
+		}
+		return null;
+	}
 	/* (non-Javadoc)
 	 * @see android.database.AbstractCursor#getColumnNames()
 	 */
@@ -41,34 +61,34 @@ public class ReceiptCursor extends AbstractCursor {
 	 * @see android.database.AbstractCursor#getDouble(int)
 	 */
 	@Override
-	public double getDouble(int arg0) {
-		return 0;
+	public double getDouble(int col) {
+		return getLong(col);
 	}
 
 	/* (non-Javadoc)
 	 * @see android.database.AbstractCursor#getFloat(int)
 	 */
 	@Override
-	public float getFloat(int arg0) {
-		// TODO Auto-generated method stub
-		return 0;
+	public float getFloat(int col) {
+		return getLong(col);
 	}
 
 	/* (non-Javadoc)
 	 * @see android.database.AbstractCursor#getInt(int)
 	 */
 	@Override
-	public int getInt(int arg0) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getInt(int col) {
+		return (int)getLong(col);
 	}
 
 	/* (non-Javadoc)
 	 * @see android.database.AbstractCursor#getLong(int)
 	 */
 	@Override
-	public long getLong(int arg0) {
-		// TODO Auto-generated method stub
+	public long getLong(int col) {
+		Object value = getObject(col);
+		if (value instanceof Long)
+			return ((Long)value).longValue();
 		return 0;
 	}
 
@@ -76,23 +96,8 @@ public class ReceiptCursor extends AbstractCursor {
 	 * @see android.database.AbstractCursor#getShort(int)
 	 */
 	@Override
-	public short getShort(int arg0) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	protected Object getObject(int col) {
-		switch(col) {
-		case 0:
-			return rows.get(getPosition()).get_id();
-		case 1:
-			return rows.get(getPosition()).getTitle();
-		case 2:
-			return rows.get(getPosition()).getDescription();
-		case 3:
-			return rows.get(getPosition()).getPrivateUrl();
-		}
-		return null;
+	public short getShort(int col) {
+		return (short)getLong(col);
 	}
 	/* (non-Javadoc)
 	 * @see android.database.AbstractCursor#getString(int)

@@ -10,6 +10,7 @@
 <category android:name="android.intent.category.LAUNCHER"></category>
 </intent-filter>
 </activity>
+<activity android:name="ReceiptDetailActivity" android:launchMode="standard"></activity>
 </application>
     <uses-sdk android:minSdkVersion="3" />
 
