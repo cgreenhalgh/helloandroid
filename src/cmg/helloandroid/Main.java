@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 
 import org.drools.KnowledgeBase;
 import org.drools.common.DroolsObjectInputStream;
+//import uk.ac.horizon.ug.hyperplace.facts.GeoPosition;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -38,6 +39,26 @@ public class Main extends Activity {
 				throws ClassNotFoundException {
 			// TODO Auto-generated method stub
 			Log.i(TAG,"loadClass("+className+","+resolve+")");
+			Class clazz = findLoadedClass(className);
+			Log.i(TAG,"- findLoadedClass: "+clazz);
+			if (clazz==null) {
+				try {
+					if (getParent()==null)
+						clazz = ClassLoader.getSystemClassLoader().loadClass(className);
+					else 
+						clazz = getParent().loadClass(className);
+				}
+				catch (Exception e) {
+					Log.i(TAG, "- Parent "+getParent()+" loadClass: "+clazz);
+				}
+			}
+			if (clazz==null) {
+				findClass(className);
+			}
+			if (clazz==null)
+				throw new ClassNotFoundException(className+" in "+this);
+			if (resolve)
+				resolveClass(clazz);
 			return super.loadClass(className, resolve);
 		}
 
@@ -60,7 +81,7 @@ public class Main extends Activity {
 				throws ClassNotFoundException {
 			// TODO Auto-generated method stub
 			Log.i(TAG,"loadClass("+className+")");
-			return super.loadClass(className);
+			return loadClass(className, false);
 		}
 		
 	}
@@ -91,12 +112,14 @@ public class Main extends Activity {
 			catch (Exception e) {
 				Log.e(TAG, "RuleBaseConfiguration in parent", e);
 			}
+			Log.i(TAG, "System.properties = "+System.getProperties());
 			// = "0" !!
 			Log.i(TAG, "java.version = "+System.getProperty("java.version"));
 			if(System.getProperty("java.version")==null || System.getProperty("java.version").length()<3) {
 				System.setProperty("java.version", "1.5"); // ?!
 				Log.i(TAG, "java.version = "+System.getProperty("java.version"));
 			}
+			Log.i(TAG, "GeoPosition: "+Class.forName("uk.ac.horizon.ug.hyperplace.facts.GeoPosition", true, cl));
 			// NB KnowledgeBase must be written to DroolsObjectOutputStream
 			// NB requires bug fix to org.drools.util.CompositeClassLoader constructor to 
 			// not pass null parent class loader]
