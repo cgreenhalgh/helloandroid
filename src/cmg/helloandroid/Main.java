@@ -91,102 +91,40 @@ public class Main extends Activity {
 			catch (Exception e) {
 				Log.e(TAG, "RuleBaseConfiguration in parent", e);
 			}
-			/* 
-I/HelloAndroidMain(  509): Trying drools...
-I/HelloAndroidMain(  509): ClassLoader: dalvik.system.PathClassLoader@43d027e8
-I/HelloAndroidMain(  509): Main: class cmg.helloandroid.Main
-I/HelloAndroidMain(  509): LatLng: class uk.me.jstott.jcoord.LatLng
-I/HelloAndroidMain(  509): KnowledgeBase: interface org.drools.KnowledgeBase
-I/HelloAndroidMain(  509): KnowledgeBaseImpl: class org.drools.impl.KnowledgeBas
-eImpl
-I/HelloAndroidMain(  509): RuleBaseConfiguration: class org.drools.RuleBaseConfi
-guration
-E/HelloAndroidMain(  509): trying drools
-E/HelloAndroidMain(  509): java.lang.ClassNotFoundException: org.drools.RuleBase
-Configuration
-E/HelloAndroidMain(  509):      at java.lang.Class.classForName(Native Method)
-E/HelloAndroidMain(  509):      at java.lang.Class.forName(Class.java:237)
-E/HelloAndroidMain(  509):      at org.drools.common.DroolsObjectInputStream.res
-olveClass(DroolsObjectInputStream.java:72)
-E/HelloAndroidMain(  509):      at org.drools.common.DroolsObjectInputStream.res
-olveClass(DroolsObjectInputStream.java:84)
-E/HelloAndroidMain(  509):      at java.io.ObjectInputStream.readNewClassDesc(Ob
-jectInputStream.java:1860)
-E/HelloAndroidMain(  509):      at java.io.ObjectInputStream.readClassDesc(Objec
-tInputStream.java:840)
-E/HelloAndroidMain(  509):      at java.io.ObjectInputStream.readNewObject(Objec
-tInputStream.java:2080)
-E/HelloAndroidMain(  509):      at java.io.ObjectInputStream.readNonPrimitiveCon
-tent(ObjectInputStream.java:943)
-E/HelloAndroidMain(  509):      at java.io.ObjectInputStream.readObject(ObjectIn
-putStream.java:2299)
-E/HelloAndroidMain(  509):      at java.io.ObjectInputStream.readObject(ObjectIn
-putStream.java:2254)
-E/HelloAndroidMain(  509):      at org.drools.common.AbstractRuleBase.readExtern
-al(AbstractRuleBase.java:262)
-E/HelloAndroidMain(  509):      at org.drools.reteoo.ReteooRuleBase.readExternal
-(ReteooRuleBase.java:221)
-E/HelloAndroidMain(  509):      at org.drools.impl.KnowledgeBaseImpl.readExterna
-l(KnowledgeBaseImpl.java:87)
-E/HelloAndroidMain(  509):      at java.io.ObjectInputStream.readNewObject(Objec
-tInputStream.java:2141)
-E/HelloAndroidMain(  509):      at java.io.ObjectInputStream.readNonPrimitiveCon
-tent(ObjectInputStream.java:943)
-E/HelloAndroidMain(  509):      at java.io.ObjectInputStream.readObject(ObjectIn
-putStream.java:2299)
-E/HelloAndroidMain(  509):      at java.io.ObjectInputStream.readObject(ObjectIn
-putStream.java:2254)
-E/HelloAndroidMain(  509):      at cmg.helloandroid.Main.onCreate(Main.java:83)
-E/HelloAndroidMain(  509):      at android.app.Instrumentation.callActivityOnCre
-ate(Instrumentation.java:1047)
-E/HelloAndroidMain(  509):      at android.app.ActivityThread.performLaunchActiv
-ity(ActivityThread.java:2459)
-E/HelloAndroidMain(  509):      at android.app.ActivityThread.handleLaunchActivi
-ty(ActivityThread.java:2512)
-E/HelloAndroidMain(  509):      at android.app.ActivityThread.access$2200(Activi
-tyThread.java:119)
-E/HelloAndroidMain(  509):      at android.app.ActivityThread$H.handleMessage(Ac
-tivityThread.java:1863)
-E/HelloAndroidMain(  509):      at android.os.Handler.dispatchMessage(Handler.ja
-va:99)
-E/HelloAndroidMain(  509):      at android.os.Looper.loop(Looper.java:123)
-E/HelloAndroidMain(  509):      at android.app.ActivityThread.main(ActivityThrea
-d.java:4363)
-E/HelloAndroidMain(  509):      at java.lang.reflect.Method.invokeNative(Native
-Method)
-E/HelloAndroidMain(  509):      at java.lang.reflect.Method.invoke(Method.java:5
-21)
-E/HelloAndroidMain(  509):      at com.android.internal.os.ZygoteInit$MethodAndA
-rgsCaller.run(ZygoteInit.java:860)
-E/HelloAndroidMain(  509):      at com.android.internal.os.ZygoteInit.main(Zygot
-eInit.java:618)
-E/HelloAndroidMain(  509):      at dalvik.system.NativeStart.main(Native Method)
-
-E/HelloAndroidMain(  509): Caused by: java.lang.NoClassDefFoundError: org.drools
-.RuleBaseConfiguration
-E/HelloAndroidMain(  509):      ... 31 more
-E/HelloAndroidMain(  509): Caused by: java.lang.ClassNotFoundException: org.droo
-ls.RuleBaseConfiguration
-E/HelloAndroidMain(  509):      at java.lang.Class.classForName(Native Method)
-E/HelloAndroidMain(  509):      at java.lang.Class.forName(Class.java:237)
-E/HelloAndroidMain(  509):      at org.drools.rule.DroolsCompositeClassLoader.lo
-adClass(DroolsCompositeClassLoader.java:75)
-E/HelloAndroidMain(  509):      at java.lang.ClassLoader.loadClass(ClassLoader.j
-ava:532)
-E/HelloAndroidMain(  509):      ... 31 more
-E/HelloAndroidMain(  509): Caused by: java.lang.NoClassDefFoundError: org.drools
-.RuleBaseConfiguration
-E/HelloAndroidMain(  509):      ... 35 more
-E/HelloAndroidMain(  509): Caused by: java.lang.ClassNotFoundException: org.droo
-ls.RuleBaseConfiguration in loader dalvik.system.PathClassLoader@4001b500
-E/HelloAndroidMain(  509):      at dalvik.system.PathClassLoader.findClass(PathC
-lassLoader.java:243)
-E/HelloAndroidMain(  509):      at java.lang.ClassLoader.loadClass(ClassLoader.j
-ava:573)
-E/HelloAndroidMain(  509):      at java.lang.ClassLoader.loadClass(ClassLoader.j
-ava:532)
-E/HelloAndroidMain(  509):      ... 35 more
-D/dalvikvm(  509): GC freed 3022 objects / 247856 bytes in 75ms			 */
+			// = "0" !!
+			Log.i(TAG, "java.version = "+System.getProperty("java.version"));
+			if(System.getProperty("java.version")==null || System.getProperty("java.version").length()<3) {
+				System.setProperty("java.version", "1.5"); // ?!
+				Log.i(TAG, "java.version = "+System.getProperty("java.version"));
+			}
+			// NB KnowledgeBase must be written to DroolsObjectOutputStream
+			// NB requires bug fix to org.drools.util.CompositeClassLoader constructor to 
+			// not pass null parent class loader]
+			// See dalvik.system.DexClassLoader for loading Dex class files from filesystem.
+			// Note: will need to run DX on generated class files on server.
+			/*
+			E/dalvikvm(  795): ERROR: defineClass(0x43c258f0, uk.ac.horizon.ug.hyperplace.fa
+					cts.GeoDistance, 0x43bbb080, 0, 731, 0x0)
+					E/HelloAndroidMain(  795): trying drools
+					E/HelloAndroidMain(  795): java.lang.UnsupportedOperationException: can't load t
+					his type of class file
+					E/HelloAndroidMain(  795):      at java.lang.VMClassLoader.defineClass(Native Me
+					thod)
+					E/HelloAndroidMain(  795):      at java.lang.ClassLoader.defineClass(ClassLoader
+					.java:338)
+					E/HelloAndroidMain(  795):      at org.drools.rule.JavaDialectRuntimeData$Packag
+					eClassLoader.fastFindClass(JavaDialectRuntimeData.java:459)
+					E/HelloAndroidMain(  795):      at org.drools.rule.DroolsCompositeClassLoader.fa
+					stFindClass(DroolsCompositeClassLoader.java:55)
+					E/HelloAndroidMain(  795):      at org.drools.rule.DroolsCompositeClassLoader.lo
+					adClass(DroolsCompositeClassLoader.java:71)
+					E/HelloAndroidMain(  795):      at java.lang.ClassLoader.loadClass(ClassLoader.j
+					ava:532)
+					E/HelloAndroidMain(  795):      at org.drools.base.mvel.MVELCompilationUnit.load
+					Class(MVELCompilationUnit.java:379)
+					E/HelloAndroidMain(  795):      at org.drools.base.mvel.MVELCompilationUnit.getC
+					ompiledExpression(MVELCompilationUnit.java:201)
+*/
 			
 			//.setText("Hello "+System.currentTimeMillis());	
 			ois = new DroolsObjectInputStream( this.getResources().openRawResource(R.raw.hyperplace), cl);
