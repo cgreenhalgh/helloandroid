@@ -2,4 +2,5 @@
 <resources>
     <string name="hello">Hello World!</string>
     <string name="app_name">helloandroid</string>
+<string name="test_app_name">helloandroid-test</string>
 </resources>

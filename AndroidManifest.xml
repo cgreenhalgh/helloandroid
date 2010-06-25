@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="cmg.helloandroid"
-      android:versionCode="1"
-      android:versionName="1.0">
-    <application android:icon="@drawable/icon" android:label="@string/app_name">
+      android:versionName="1.1" android:versionCode="2">
+    <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true">
 
 
     <activity android:launchMode="standard" android:icon="@drawable/icon" android:label="@string/app_name" android:name="ReceiptListActivity"><intent-filter><action android:name="android.intent.action.MAIN"></action>
@@ -11,6 +10,10 @@
 </intent-filter>
 </activity>
 <activity android:name="ReceiptDetailActivity" android:launchMode="standard"></activity>
+<activity android:name="Main" android:label="@string/test_app_name" android:launchMode="standard" android:icon="@drawable/icon"><intent-filter><action android:name="android.intent.action.MAIN"></action>
+<category android:name="android.intent.category.LAUNCHER"></category>
+</intent-filter>
+</activity>
 </application>
     <uses-sdk android:minSdkVersion="3" />
 

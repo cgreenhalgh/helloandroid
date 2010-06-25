@@ -4,12 +4,12 @@
     android:layout_width="fill_parent"    
 	android:layout_height="wrap_content"
      android:orientation="vertical"> <!--  android:layout_height="fill_parent"   -->
-    <TextView android:id="@+id/receipt_title" 
+    <TextView android:text="title" android:id="@+id/receipt_title" 
     android:padding="10dp" android:textSize="16sp"
     android:layout_width="fill_parent"    
 	android:layout_height="wrap_content"
     ></TextView>
-    <TextView android:id="@+id/receipt_description" 
+    <TextView android:text="descriptiopn" android:id="@+id/receipt_description" 
     android:padding="6dp" android:textSize="10sp"
     android:layout_width="fill_parent"    
 	android:layout_height="wrap_content"
