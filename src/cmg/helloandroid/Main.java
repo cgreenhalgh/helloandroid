@@ -4,9 +4,14 @@
 package cmg.helloandroid;
 
 import java.io.ObjectInputStream;
+import java.util.Collection;
 
 import org.drools.KnowledgeBase;
 import org.drools.common.DroolsObjectInputStream;
+import org.drools.runtime.StatefulKnowledgeSession;
+
+import uk.ac.horizon.ug.exserver.model.ClientConversation;
+import uk.ac.horizon.ug.exserver.model.ConversationStatus;
 //import uk.ac.horizon.ug.hyperplace.facts.GeoPosition;
 
 import android.app.Activity;
@@ -96,6 +101,9 @@ public class Main extends Activity {
 		setContentView(R.layout.main);
 		DroolsObjectInputStream ois = null;
 		try {
+			// make sure mvel won't try JIT (wouldn't work!)
+			System.setProperty("mvel2.disable.jit", "true"); 
+			
 			Log.i(TAG, "Trying drools...");
 			ClassLoader cl = new MyClassLoader(Main.class.getClassLoader());
 			Log.i(TAG, "ClassLoader: "+cl);
@@ -126,27 +134,15 @@ public class Main extends Activity {
 			// See dalvik.system.DexClassLoader for loading Dex class files from filesystem.
 			// Note: will need to run DX on generated class files on server.
 			/*
-			E/dalvikvm(  795): ERROR: defineClass(0x43c258f0, uk.ac.horizon.ug.hyperplace.fa
-					cts.GeoDistance, 0x43bbb080, 0, 731, 0x0)
-					E/HelloAndroidMain(  795): trying drools
-					E/HelloAndroidMain(  795): java.lang.UnsupportedOperationException: can't load t
-					his type of class file
-					E/HelloAndroidMain(  795):      at java.lang.VMClassLoader.defineClass(Native Me
-					thod)
-					E/HelloAndroidMain(  795):      at java.lang.ClassLoader.defineClass(ClassLoader
-					.java:338)
-					E/HelloAndroidMain(  795):      at org.drools.rule.JavaDialectRuntimeData$Packag
-					eClassLoader.fastFindClass(JavaDialectRuntimeData.java:459)
-					E/HelloAndroidMain(  795):      at org.drools.rule.DroolsCompositeClassLoader.fa
-					stFindClass(DroolsCompositeClassLoader.java:55)
-					E/HelloAndroidMain(  795):      at org.drools.rule.DroolsCompositeClassLoader.lo
-					adClass(DroolsCompositeClassLoader.java:71)
-					E/HelloAndroidMain(  795):      at java.lang.ClassLoader.loadClass(ClassLoader.j
-					ava:532)
-					E/HelloAndroidMain(  795):      at org.drools.base.mvel.MVELCompilationUnit.load
-					Class(MVELCompilationUnit.java:379)
-					E/HelloAndroidMain(  795):      at org.drools.base.mvel.MVELCompilationUnit.getC
-					ompiledExpression(MVELCompilationUnit.java:201)
+			 
+I/dalvikvm(  278): Could not find method java.beans.Introspector.decapitalize, r
+eferenced from method org.drools.core.util.asm.ClassFieldInspector.calcFieldName
+
+W/dalvikvm(  278): VFY: unable to resolve static method 118: Ljava/beans/Introsp
+ector;.decapitalize (Ljava/lang/String;)Ljava/lang/String;
+D/dalvikvm(  278): VFY: replacing opcode 0x71 at 0x0004
+D/dalvikvm(  278): Making a copy of Lorg/drools/core/util/asm/ClassFieldInspecto
+r;.calcFieldName code (36 bytes)
 */
 			
 			//.setText("Hello "+System.currentTimeMillis());	
@@ -155,6 +151,33 @@ public class Main extends Activity {
 			ois.close();
 			Log.i(TAG, "Read "+kb.getClass().getName()+" "+kb);
 			text.setText("Read "+kb.getClass().getName()+" "+kb);
+			
+			// create a session
+			StatefulKnowledgeSession ks = kb.newStatefulKnowledgeSession();
+			text.setText(text.getText()+"\nCreated session: "+ks);
+			
+			// add a fact!
+			ClientConversation cc = new ClientConversation();
+			cc.setClientId("1234");
+			cc.setClientType("Hyperplace");
+			cc.setConversationId("c123");
+			cc.setSessionId("s123");
+			cc.setCreationTime(System.currentTimeMillis());
+			cc.setStatus(ConversationStatus.ACTIVE);
+			ks.insert(cc);
+			text.setText(text.getText()+"\nAdded fact: "+cc);
+			
+			ks.fireAllRules();
+			text.setText(text.getText()+"\nFired rules");
+			
+			Collection<Object> facts = ks.getObjects();
+			StringBuffer sb = new StringBuffer();
+			sb.append("Facts: ");
+			for (Object fact : facts) {
+				sb.append(fact);
+				sb.append("; ");
+			}
+			text.setText(text.getText()+"\n"+sb.toString());
 		}
 		catch (Exception e) {
 			Log.e(TAG,"trying drools", e);
